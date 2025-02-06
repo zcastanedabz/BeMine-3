@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I < 3 u Michi</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            background-size: 200% 200%;
+            animation: gradientAnimation 5s ease infinite;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            z-index: 1;
+            position: relative;
+            color: #d5006d;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .yes-button {
+            background-color: #ff69b4;
+            color: white;
+        }
+
+        .yes-button:hover {
+            background-color: #ff85c1;
+        }
+
+        .no-button {
+            background-color: #ff4500;
+            color: white;
+        }
+
+        .no-button:hover {
+            background-color: #ff6f5f;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #d5006d;
+            display: none;
+            z-index: 1;
+            position: relative;
+        }
+
+        .heart {
+            position: absolute;
+            width: 80px; /* Increased size */
+            height: auto;
+            animation: float 10s infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Decorative hearts in the background */
+        .background-heart {
+            position: absolute;
+            width: 100px;
+            opacity: 0.1;
+            animation: float 20s infinite;
+        }
+    </style>
+</head>
+<body>
+    <h1>Would you be my Valentine?</h1>
+    <button class="button yes-button" id="yesBtn">Yes</button>
+    <button class="button no-button" id="noBtn">No</button>
+    <div id="message">Yay! You're the sweetest! ❤️</div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const message = document.getElementById("message");
+
+        noBtn.addEventListener("mouseover", function() {
+            const randomX = Math.floor(Math.random() * (window.innerWidth - 100));
+            const randomY = Math.floor(Math.random() * (window.innerHeight - 50));
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        yesBtn.addEventListener("click", function() {
+            message.style.display = "block";
+        });
+
+        function createHeart() {
+            const heart = document.createElement('img');
+            heart.src = 'hrt.png'; // Heart image URL
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 10000); // Remove heart after 10 seconds
+        }
+
+        setInterval(createHeart, 1000); // Create a new heart every 1 second
+
+        // Create decorative background hearts
+        function createBackgroundHeart() {
+            const bgHeart = document.createElement('img');
+            bgHeart.src = 'hrt.png'; // Use the same heart image for background
+            bgHeart.classList.add('background-heart');
+            bgHeart.style.left = Math.random() * 100 + 'vw';
+            bgHeart.style.top = Math.random() * 100 + 'vh';
+            bgHeart.style.animationDuration = (Math.random() * 10 + 20) + 's'; // Random float duration
+            document.body.appendChild(bgHeart);
+            setTimeout(() => {
+                bgHeart.remove();
+            }, 20000); // Remove background heart after 20 seconds
+        }
+
+        // Create background hearts every 3 seconds
+        setInterval(createBackgroundHeart, 3000);
+    </script>
+</body>
+</html>
